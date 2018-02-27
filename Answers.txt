@@ -2,7 +2,7 @@
     select name from Highschooler where ID = ANY(select ID2 from Friend where ID1 = ANY(select ID from Highschooler where name = "Gabriel"));
 
 2. Find all students who do not appear in the Likes table (as a student who likes or is liked) and return their names and grades.
-    select name from Highschooler where ID not in(select ID1 from Likes) and ID not in(select ID2 from Likes);
+    select name,grade from Highschooler where ID not in(select ID1 from Likes) and ID not in(select ID2 from Likes);
 
 3. Find the name and grade of all students who are liked by more than one other student.
     select name,grade
@@ -12,7 +12,7 @@
            where ID2=Highschooler.ID) > 1;
 
 4. For every student who likes someone 2 or more grades younger than themselves, return that student's name and grade, and the name and grade of the student they like.
-    select H1.name 
+    select H1.name, H1.grade, H2.name, H2.grade
     from Highschooler as H1, Highschooler as H2, Likes 
     where H1.ID = ID1 and H2.ID = ID2 and (H1.grade-H2.grade)>=2;
 
